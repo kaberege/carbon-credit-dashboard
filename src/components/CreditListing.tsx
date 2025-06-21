@@ -1,64 +1,47 @@
+import { useEffect } from 'react';
 import { useDashboardStore } from '../store/useStore';
 import { Link } from 'react-router-dom';
-import { BiSearch, BiFilter } from 'react-icons/bi';
+import { type CarbonOffsetProjectProps } from '../interfaces';
+import { carbonOffsetProjects } from '../constants';
+import FilterProject from './FilterProject';
+import SearchProject from './SearchProject';
 
-function CreditListing() {
-    const { projects, search, filter, setSearch, setFilter } = useDashboardStore();
+// Component for displaying carbon project cards in  a grid format
+const CreditListing: React.FC = () => {
+    const { sortedProjects, setProjects } = useDashboardStore();
 
-    const filtered = projects.filter(p => {
-        return (
-            p.project_type.toLowerCase().includes(search.toLowerCase()) &&
-            (filter === '' || p.project_type === filter)
-        );
-    });
+    useEffect(() => {
+        setProjects(carbonOffsetProjects);
+    }, []);
 
-    const uniqueTypes = [...new Set(projects.map(p => p.project_type))];
 
     return (
         <div>
-            <h1 className="text-3xl font-bold mb-6">EcoLedger Carbon Credits</h1>
+            <h1 className="text-zinc-950 text-xl sm:text-3xl font-bold mb-6">EcoLedger Carbon Credits</h1>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <div className="flex items-center border rounded px-3 py-2 w-full sm:w-1/2">
-                    <BiSearch className="w-5 h-5 text-gray-500 mr-2" />
-                    <input
-                        type="text"
-                        placeholder="Search by project type..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="w-full outline-none bg-transparent"
-                    />
-                </div>
-                <div className="flex items-center border rounded px-3 py-2 w-full sm:w-1/2">
-                    <BiFilter className="w-5 h-5 text-gray-500 mr-2" />
-                    <select
-                        value={filter}
-                        onChange={(e) => setFilter(e.target.value)}
-                        className="w-full bg-transparent outline-none"
-                    >
-                        <option value="">All Types</option>
-                        {uniqueTypes.map(type => (
-                            <option key={type} value={type}>{type}</option>
-                        ))}
-                    </select>
-                </div>
+                <SearchProject />
+                <FilterProject />
             </div>
 
-            {filtered.length === 0 ? (
-                <p className="text-center text-gray-500">No matching projects found.</p>
+            {sortedProjects.length === 0 ? (
+                <p className="text-center text-red-500 font-medium text-base">No matching projects found.</p>
             ) : (
-                <div className="grid md:grid-cols-2 gap-4">
-                    {filtered.map((p) => (
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {sortedProjects.map((p: CarbonOffsetProjectProps) => (
                         <Link
                             key={p.token_id}
                             to={`/details/${p.token_id}`}
-                            className="block border rounded-lg p-4 shadow hover:shadow-lg transition bg-white"
+                            className="block border rounded-lg p-4 shadow hover:shadow-lg hover:shadow-teal-800 transition bg-teal-100
+                            hover:scale-105"
                         >
-                            <h2 className="text-xl font-semibold">{p.project_name}</h2>
-                            <p>{p.location} • {p.certification}</p>
-                            <p className="text-sm text-gray-600">{p.project_type}</p>
-                            <p className="mt-2 font-medium">CO₂ Offset: {p.co2_offset_tonnes}t</p>
-                            <p>Price: ${p.price_per_ton}/ton</p>
+                            <h2 className="text-zinc-800 text-[18px] sm:text-xl font-semibold mb-2">{p.project_name}</h2>
+                            <p className='flex items-center text-zinc-950 text-sm'>{p.location}
+                                <i className='ml-2 text-blue-900'><span className='text-zinc-950 font-medium'>-</span>{p.certification}</i>
+                            </p>
+                            <p className="text-zinc-600 text-sm">{p.project_type}</p>
+                            <p className=" text-zinc-950 text-sm mt-2">CO₂ Offset: <strong>{p.co2_offset_tonnes}t</strong></p>
+                            <p className=' text-zinc-950 text-sm'>Price: <strong>${p.price_per_ton}/ton</strong></p>
                         </Link>
                     ))}
                 </div>

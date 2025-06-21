@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom"
-function App() {
 
-
+// Main app view
+const App: React.FC = () => {
   return (
     <main className="min-h-screen bg-gray-50 text-gray-800">
-      <div className="max-w-6xl mx-auto py-8 px-4">
+      <div className="container mx-auto py-8 px-4">
         <Outlet />
       </div>
     </main>

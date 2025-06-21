@@ -1,54 +1,41 @@
-# React + TypeScript + Vite
+# Carbon Credit Dashboard (MVP v0.1)
+This is a responsive React dashboard UI built for EcoReclaim as part of a frontend MVP trial task. The app displays a list of carbon credits available on EcoLedger, with filtering, searching, and detailed views using mock data.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
+### Dashboard View with carbon credit cards:
 
-Currently, two official plugins are available:
+- Displays key info – Project Name, Location, Certification, CO₂ Offset, Price per Ton
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Single Credit View:
+- Click to view full details in a new page (with simulated routing)
 
-## Expanding the ESLint configuration
+### Search & Filter:
+- Search by project type and filter by type (e.g., Reforestation)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Responsive Design:
+- Built with Tailwind CSS to adapt across mobile, tablet, and desktop
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tech Stack
+- React 19 + Vite 6 – fast development and modern bundling
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- React Router v7 – declarative routing for nested views
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- Zustand – lightweight and scalable global state management
+
+- Tailwind CSS v4 – for fast, utility-first styling
+
+- TypeScript – type safety
+
+- Icons – from react-icons for simple visuals
+
+
+## Design Decisions
+- Zustand was chosen for state simplicity without boilerplate.
+
+- Tailwind CSS enabled rapid, mobile-first styling.
+
+
+## Deployment
+Deployed with Vercel
+ - https://carbon-credit-dashboard.vercel.app/

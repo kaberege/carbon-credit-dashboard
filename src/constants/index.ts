@@ -1,5 +1,6 @@
-import { type CarbonOffsetProjectProps } from "../interfaces";
+import type { CarbonOffsetProjectProps } from "../interfaces";
 
+// Data for carbon offset projects
 export const carbonOffsetProjects: CarbonOffsetProjectProps[] = [
     {
         project_name: "GreenForest Kenya",
