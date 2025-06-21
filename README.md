@@ -38,4 +38,4 @@ This is a responsive React dashboard UI built for EcoReclaim as part of a fronte
 
 ## Deployment
 Deployed with Vercel
- - https://carbon-credit-dashboard.vercel.app/
+ - https://carbon-credit-dashboard-tawny.vercel.app/
